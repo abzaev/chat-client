@@ -16,7 +16,7 @@ export const EditForm = (props: Props) => {
   } = props;
   const [messageText, setMessageText] = useState(initialValues.messageText);
 
-  const onSubmitHandler = (event: any) => {
+  const onSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     const changedMessage = { ...initialValues, messageText };
     onClick(changedMessage);

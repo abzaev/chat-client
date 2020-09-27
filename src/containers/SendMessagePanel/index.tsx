@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { AppBar, Grid, Button, Toolbar, TextField, IconButton, FormControl, OutlinedInput } from '@material-ui/core';
+import { AppBar, Grid, Button, Toolbar, IconButton, FormControl, OutlinedInput, Typography } from '@material-ui/core';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 import { sendMessage } from '../../store/index';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../types';
 
 const useStyles = makeStyles({
   emoji: {
@@ -23,8 +25,9 @@ const useStyles = makeStyles({
 export const SendMessagePanel = () => {
   const classes = useStyles();
 
+  const userData = useSelector((state: AppState) => state.auth.userData);
+
   const [messageText, setMessageText] = useState("");
-  const [userName, setUserName] = useState("Anonymous");
   const [file, setFile] = useState();
   const [emojiPickerState, SetEmojiPicker] = useState(false);
 
@@ -78,19 +81,14 @@ export const SendMessagePanel = () => {
             <Grid item>
               <Button
                 onClick={() => {
-                  sendMessage({messageText, userName, file});
+                  sendMessage({messageText, userLogin: userData?.login, userId: userData?.id, file});
                   setMessageText("");
                   setFile(undefined);
                 }}
                 variant="contained">Send</Button>
             </Grid>
             <Grid item>
-              <TextField
-                label="Name"
-                variant="outlined"
-                value={userName}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserName(event.target.value)}
-              />
+              <Typography>{userData?.login}</Typography>
             </Grid>
           </Grid>
         </Toolbar>

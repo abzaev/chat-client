@@ -37,6 +37,7 @@ export const changeMessage = (message: Message, roomId: number): AppThunk => asy
 };
 
 export const sendMessage = (message: any) => {
+  console.log(message)
   if (message.file) {
     message.fileType = message.file.type;
     message.fileName = message.file.name;
