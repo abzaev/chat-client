@@ -33,6 +33,7 @@ export default (props: Props) => {
         <Grid item>
           <TextField
             label="Введите пароль"
+            type="password"
             variant="outlined"
             value={password}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
